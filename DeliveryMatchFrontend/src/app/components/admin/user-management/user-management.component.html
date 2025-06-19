@@ -1,1 +1,12 @@
-<p>user-management works!</p>
+<div class="container mt-5">
+  <h2>User Management</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let user of users">
+      ID: {{ user.id }} -
+      Name: {{ user.firstName }} {{ user.lastName}} -
+      Email: {{ user.email }} -
+      Role: {{ user.role || 'N/A' }}
+    </li>
+  </ul>
+  <p *ngIf="users.length === 0">No users available.</p>
+</div>
