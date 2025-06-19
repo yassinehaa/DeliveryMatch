@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <h2>Driver Trip History</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let trip of trips">
+      ID: {{ trip.id }} -
+      Departure: {{ trip.departure }} -
+      Destination: {{ trip.destination }} -
+      Date: {{ trip.departureDate | date:'medium' }} -
+      Status: Completed
+    </li>
+  </ul>
+  <p *ngIf="trips.length === 0">No trip history available.</p>
+</div>

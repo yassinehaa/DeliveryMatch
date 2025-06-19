@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <h2>Request History</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let request of requests">
+      ID: {{ request.id }} -
+      Trip: {{ request.trip.destination || 'N/A' }} -
+      Status: {{ request.status }} -
+      Date: {{ request.requestDate | date:'medium' }}
+    </li>
+  </ul>
+  <p *ngIf="requests.length === 0">No request history available.</p>
+</div>

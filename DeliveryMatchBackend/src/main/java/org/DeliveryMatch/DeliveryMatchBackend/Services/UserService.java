@@ -7,6 +7,9 @@ import org.DeliveryMatch.DeliveryMatchBackend.Repositories.UserRepository;
 import org.DeliveryMatch.DeliveryMatchBackend.entities.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -14,11 +17,16 @@ public class UserService {
     private final ModelMapper modelMapper;
 
     public UserDTO getUserById(Long id) throws Throwable {
-        return (UserDTO) userRepository.findById(id)
+        return userRepository.findById(id)
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
-
+    public List<UserDTO> getallusers(UserDTO userDTO){
+        return userRepository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user,UserDTO.class))
+                .collect(Collectors.toList());
+    }
     public UserDTO updateUser(Long id, UserDTO dto) throws Throwable {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));

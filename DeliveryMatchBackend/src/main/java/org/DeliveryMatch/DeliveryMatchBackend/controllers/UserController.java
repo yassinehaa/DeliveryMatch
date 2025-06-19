@@ -6,6 +6,8 @@ import org.DeliveryMatch.DeliveryMatchBackend.Services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -21,6 +23,10 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable Long id) throws Throwable {
         return userService.getUserById(id);
+    }
+    @GetMapping
+    public List<UserDTO> getallusers(@RequestBody UserDTO userDTO){
+        return userService.getallusers(userDTO);
     }
 
     @PutMapping("/{id}")

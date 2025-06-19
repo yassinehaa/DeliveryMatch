@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <h2>Send Parcel Request</h2>
+  <form (ngSubmit)="onSubmit()" #requestForm="ngForm">
+    <div class="mb-3">
+      <label for="tripId" class="form-label">Trip ID</label>
+      <input type="number" class="form-control" id="tripId" [(ngModel)]="newRequest.tripId" name="tripId" required>
+    </div>
+    <div class="mb-3">
+      <label for="dimensions" class="form-label">Dimensions</label>
+      <input type="text" class="form-control" id="dimensions" [(ngModel)]="newRequest.dimensions" name="dimensions" required>
+    </div>
+    <div class="mb-3">
+      <label for="weight" class="form-label">Weight</label>
+      <input type="number" class="form-control" id="weight" [(ngModel)]="newRequest.weight" name="weight" required>
+    </div>
+    <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <input type="text" class="form-control" id="type" [(ngModel)]="newRequest.type" name="type" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Send Request</button>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h2>Trip Requests</h2>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let request of requests">
+      ID: {{ request.id }} -
+      Sender: {{ request.sender.firstName }} {{ request.sender.lastName || 'N/A' }} -
+      Dimensions: {{ request.dimensions }} -
+      Weight: {{ request.weight }} -
+      Status: {{ request.status }} -
+      <button (click)="acceptRequest(request.id)" class="btn btn-success btn-sm me-2" [disabled]="request.status !== 'EN_ATTENTE'">Accept</button>
+      <button (click)="refuseRequest(request.id)" class="btn btn-danger btn-sm" [disabled]="request.status !== 'EN_ATTENTE'">Refuse</button>
+    </li>
+  </ul>
+  <p *ngIf="requests.length === 0">No requests available.</p>
+</div>
