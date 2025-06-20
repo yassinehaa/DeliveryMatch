@@ -1,34 +1,38 @@
-<div class="container mt-5">
-  <h2>Post New Trip</h2>
-  <form (ngSubmit)="onSubmit()" #tripForm="ngForm">
-    <div class="mb-3">
-      <label for="departure" class="form-label">Departure</label>
-      <input type="text" class="form-control" id="departure" [(ngModel)]="newTrip.departure" name="departure" required>
+<form #tripForm="ngForm" (ngSubmit)="onSubmit()" class="p-6 max-w-lg mx-auto bg-white shadow-md rounded-lg">
+  <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    {{ errorMessage }}
+  </div>
+  <div class="mb-4">
+    <label for="departure" class="block text-gray-700 font-bold mb-1">Departure</label>
+    <input type="text" id="departure" name="departure" [(ngModel)]="newTrip.departure" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+  </div>
+  <div class="mb-4">
+    <label for="destination" class="block text-gray-700 font-bold mb-1">Destination</label>
+    <input type="text" id="destination" name="destination" [(ngModel)]="newTrip.destination" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+  </div>
+  <div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-1">Stopovers</label>
+    <div *ngFor="let stopover of newTrip.stopovers; let i = index" class="flex items-center mb-2">
+      <input type="text" [name]="'stopover-' + i" [(ngModel)]="newTrip.stopovers[i]" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <button type="button" (click)="removeStopover(i)" *ngIf="newTrip.stopovers.length > 1" class="ml-2 text-red-500 hover:text-red-700">Remove</button>
     </div>
-    <div class="mb-3">
-      <label for="destination" class="form-label">Destination</label>
-      <input type="text" class="form-control" id="destination" [(ngModel)]="newTrip.destination" name="destination" required>
-    </div>
-    <div class="mb-3">
-      <label for="stopovers" class="form-label">Stopovers (comma-separated)</label>
-      <input type="text" class="form-control" id="stopovers" [(ngModel)]="newTrip.stopovers" name="stopovers" required>
-    </div>
-    <div class="mb-3">
-      <label for="maxDimensions" class="form-label">Max Dimensions</label>
-      <input type="text" class="form-control" id="maxDimensions" [(ngModel)]="newTrip.maxDimensions" name="maxDimensions" required>
-    </div>
-    <div class="mb-3">
-      <label for="merchandiseType" class="form-label">Merchandise Type</label>
-      <input type="text" class="form-control" id="merchandiseType" [(ngModel)]="newTrip.merchandiseType" name="merchandiseType" required>
-    </div>
-    <div class="mb-3">
-      <label for="availableCapacity" class="form-label">Available Capacity</label>
-      <input type="number" class="form-control" id="availableCapacity" [(ngModel)]="newTrip.availableCapacity" name="availableCapacity" required>
-    </div>
-    <div class="mb-3">
-      <label for="departureDate" class="form-label">Departure Date</label>
-      <input type="datetime-local" class="form-control" id="departureDate" [(ngModel)]="newTrip.departureDate" name="departureDate" required>
-    </div>
-    <button type="submit" class="btn btn-primary w-100">Post Trip</button>
-  </form>
-</div>
+    <button type="button" (click)="addStopover()" class="text-blue-500 hover:text-blue-700">Add Stopover</button>
+  </div>
+  <div class="mb-4">
+    <label for="maxDimensions" class="block text-gray-700 font-bold mb-1">Max Dimensions</label>
+    <input type="text" id="maxDimensions" name="maxDimensions" [(ngModel)]="newTrip.maxDimensions" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+  </div>
+  <div class="mb-4">
+    <label for="merchandiseType" class="block text-gray-700 font-bold mb-1">Merchandise Type</label>
+    <input type="text" id="merchandiseType" name="merchandiseType" [(ngModel)]="newTrip.merchandiseType" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+  </div>
+  <div class="mb-4">
+    <label for="availableCapacity" class="block text-gray-700 font-bold mb-1">Available Capacity</label>
+    <input type="number" id="availableCapacity" name="availableCapacity" [(ngModel)]="newTrip.availableCapacity" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" step="0.1" required>
+  </div>
+  <div class="mb-4">
+    <label for="departureDate" class="block text-gray-700 font-bold mb-1">Departure Date</label>
+    <input type="date" id="departureDate" name="departureDate" [(ngModel)]="newTrip.departureDate" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+  </div>
+  <button type="submit" [disabled]="!tripForm.valid" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400">Create Trip</button>
+</form>

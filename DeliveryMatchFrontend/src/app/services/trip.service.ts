@@ -15,8 +15,8 @@ export class TripService {
   getTrips(): Observable<Trip[]> {
     return this.http.get<Trip[]>(this.apiUrl);
   }
-  createTrip(driverId: number, trip: { departure: string; destination: string; stopovers: string[]; maxDimensions: string; merchandiseType: string; availableCapacity: number; departureDate: string }): Observable<Trip> {
-    return this.http.post<Trip>(`${this.apiUrl}?driverId=${driverId}`, trip);
+  createTrip(driverId: number, tripData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create/${driverId}`, tripData);
   }
 
   getTripByDestination(destination:string): Observable<Trip> {

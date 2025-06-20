@@ -8,5 +8,4 @@ export enum ParcelStatus {
   EN_ATTENTE = 'EN_ATTENTE',
   ACCEPTE = 'ACCEPTE',
   REFUSE = 'REFUSE',
-  LIVRE = 'LIVRE'
 }
