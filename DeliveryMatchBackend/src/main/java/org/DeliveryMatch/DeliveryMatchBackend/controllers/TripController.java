@@ -30,4 +30,3 @@ public class TripController {
         return tripService.searchTrips(destination);
     }
 }
-
