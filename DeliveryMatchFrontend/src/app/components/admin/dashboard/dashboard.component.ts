@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit{
       this.totalTrips = data.length;
       this.recentTrips = data.slice(0, 5); // Show last 5 trips
     });
-    this.parcelService.getRequestsBySender(1).subscribe(data => { // Placeholder senderId
+    this.parcelService.getRequestsBySender().subscribe(data => { // Placeholder senderId
       this.totalRequests = data.length;
       this.recentRequests = data.slice(0, 5); // Show last 5 requests
     });

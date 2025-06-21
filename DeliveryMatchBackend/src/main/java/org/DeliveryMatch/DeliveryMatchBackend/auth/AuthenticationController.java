@@ -1,18 +1,14 @@
 package org.DeliveryMatch.DeliveryMatchBackend.auth;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
-
-    public AuthenticationController(AuthenticationService service) {
-        this.service = service;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
@@ -20,6 +16,7 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(service.register(request));
     }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request

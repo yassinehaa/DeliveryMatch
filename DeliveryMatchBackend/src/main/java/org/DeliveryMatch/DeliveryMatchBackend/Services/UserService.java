@@ -50,5 +50,11 @@ public class UserService {
         User savedUser = userRepository.save(user);
         return modelMapper.map(savedUser, UserDTO.class);
     }
+
+    public Long getUserIdByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(User::getId)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
 }
 

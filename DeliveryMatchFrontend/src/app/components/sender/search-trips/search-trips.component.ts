@@ -1,27 +1,35 @@
 import { Component } from '@angular/core';
-import {Trip} from '../../../models/trip.model';
-import {TripService} from '../../../services/trip.service';
-import {NgForOf, NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { Trip } from '../../../models/trip.model';
+import { TripService } from '../../../services/trip.service';
+import { NgForOf, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-trips',
-  imports: [
-    NgIf,
-    FormsModule,
-    NgForOf
-  ],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgForOf],
   templateUrl: './search-trips.component.html',
   styleUrl: './search-trips.component.css'
 })
 export class SearchTripsComponent {
-  trips: Trip[] = [];
+  trips: {
+    id: number;
+    departure: string;
+    destination: string;
+    stopovers: string[];
+    maxDimensions: string;
+    merchandiseType: string;
+    availableCapacity: number;
+    departureDate: string;
+    driver: null;
+    requests: any[]
+  }[] = [];
   destination = '';
 
   constructor(private tripService: TripService) {}
 
   search() {
-    this.tripService.searchTrips(this.destination).subscribe(data => {
+    this.tripService.searchTrips(this.destination).subscribe((data) => {
       this.trips = data;
     });
   }

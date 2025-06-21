@@ -1,31 +1,40 @@
 import {Component} from '@angular/core';
-import {UserService} from '../../../services/user.service';
-import {User} from '../../../models/user.model';
-import {Role} from '../../../models/role.model';
+import {AuthService} from '../../../services/auth.service';
+import {Router} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  user: User = {
-    id: 0,
+  loginData = {
     email: '',
-    password: '',
-    firstName: '',
-    lastName: '',
-    verified: false,
-    active: false,
-    role: Role.USER
+    password: ''
   };
+  errorMessage: string | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    if (this.user.email && this.user.password) {
-      this.userService.createuser(this.user).subscribe(); // Replace with actual login endpoint if different
-    }
+    this.authService.login(this.loginData).subscribe({
+      next: () => {
+        const user = this.authService.getUser();
+        if (user?.role === 'CONDUCTEUR') {
+          this.router.navigate(['/trips']);
+        } else if (user?.role === 'EXPEDITEUR') {
+          this.router.navigate(['/parcels']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.error || 'Login failed';
+      }
+    });
   }
 }

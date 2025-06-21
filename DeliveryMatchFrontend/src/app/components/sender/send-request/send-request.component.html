@@ -3,7 +3,7 @@
   <form (ngSubmit)="onSubmit()" #requestForm="ngForm">
     <div class="mb-3">
       <label for="tripId" class="form-label">Trip ID</label>
-      <input type="number" class="form-control" id="tripId" [(ngModel)]="newRequest.tripId" name="tripId" required>
+      <input type="number" class="form-control" id="tripId" [(ngModel)]="newRequest.trip.id" name="tripId" required>
     </div>
     <div class="mb-3">
       <label for="dimensions" class="form-label">Dimensions</label>

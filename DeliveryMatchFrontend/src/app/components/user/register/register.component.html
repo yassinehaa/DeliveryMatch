@@ -1,60 +1,37 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header bg-primary text-white">
-          <h3>Register as {{ user.role === Role.CONDUCTEUR ? 'Driver' : 'Shipper' }}</h3>
-        </div>
-        <div class="card-body">
-          <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="firstName"
-                [(ngModel)]="user.firstName"
-                name="firstName"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Last Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="lastName"
-                [(ngModel)]="user.lastName"
-                name="lastName"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                [(ngModel)]="user.email"
-                name="email"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                [(ngModel)]="user.password"
-                name="password"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Register</button>
-          </form>
-        </div>
-      </div>
-    </div>
+<ng-container *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</ng-container>
+
+<div class="form-group">
+  <label for="firstName">First Name</label>
+  <input type="text" id="firstName" [(ngModel)]="registerData.firstName" required>
+</div>
+
+<div class="form-group">
+  <label for="lastName">Last Name</label>
+  <input type="text" id="lastName" [(ngModel)]="registerData.lastName" required>
+</div>
+
+<div class="form-group">
+  <label for="email">Email</label>
+  <input type="email" id="email" [(ngModel)]="registerData.email" required>
+</div>
+
+<div class="form-group">
+  <label for="password">Password</label>
+  <input type="password" id="password" [(ngModel)]="registerData.password" required>
+</div>
+
+<div class="form-group">
+  <label>Role</label>
+  <div>
+    <input type="radio" id="driver" name="role" value="CONDUCTEUR" [(ngModel)]="registerData.role" required>
+    <label for="driver">Driver</label>
+  </div>
+  <div>
+    <input type="radio" id="sender" name="role" value="EXPEDITEUR" [(ngModel)]="registerData.role" required>
+    <label for="sender">Shipper</label>
   </div>
 </div>
+
+<button type="submit" (click)="onSubmit()">Register</button>
