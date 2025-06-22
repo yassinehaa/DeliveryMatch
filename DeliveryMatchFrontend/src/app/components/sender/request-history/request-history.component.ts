@@ -5,13 +5,13 @@ import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-trip-request',
+  selector: 'app-request-history', // Corrected selector
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './request-history.component.ts',
-  styleUrl: './request-history.component.css'
+  imports: [CommonModule, NgForOf, NgIf],
+  templateUrl: './request-history.component.html', // Fixed templateUrl
+  styleUrls: ['./request-history.component.css']
 })
-export class TripRequestComponent implements OnInit {
+export class RequestHistoryComponent implements OnInit {
   requests: ParcelRequest[] = [];
   errorMessage: string | null = null;
 
@@ -26,7 +26,7 @@ export class TripRequestComponent implements OnInit {
   }
 
   loadRequests() {
-    const senderId = this.authService.getUser()?.userId; // Assuming AuthService provides user ID
+    const senderId = this.authService.getUser()?.userId;
     if (!senderId) {
       this.errorMessage = 'Sender ID not found. Please log in again.';
       return;

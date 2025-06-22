@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Trip } from '../models/trip.model';
-import { AuthService } from './auth.service';
 
 interface CreateTripDTO {
   departure: string;
@@ -32,7 +31,7 @@ interface TripDTO {
 export class TripService {
   private apiUrl = 'http://localhost:8081/api/trips';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   getTrips(): Observable<Trip[]> {
     return this.http.get<TripDTO[]>(`${this.apiUrl}`).pipe(
@@ -45,21 +44,17 @@ export class TripService {
   }
 
   createTrip(tripData: CreateTripDTO): Observable<TripDTO> {
-    const token = this.authService.getToken();
-    if (!token) {
-      throw new Error('No authentication token available');
-    }
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    console.log('Creating trip with headers:', { Authorization: headers.get('Authorization') });
-    return this.http.post<TripDTO>(`${this.apiUrl}/create`, tripData, { headers }).pipe(
+    console.log('TripService: Submitting payload:', JSON.stringify(tripData, null, 2));
+    return this.http.post<TripDTO>(`${this.apiUrl}/create`, tripData).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.error('Trip creation error:', {
+        console.error('TripService: Error creating trip:', {
           status: error.status,
           statusText: error.statusText,
           url: error.url,
           error: error.error,
           message: error.message,
-          headers: error.headers
+          headers: error.headers,
+          requestBody: JSON.stringify(tripData, null, 2)
         });
         throw error;
       })

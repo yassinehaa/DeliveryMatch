@@ -9,21 +9,10 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [NgIf, FormsModule, NgForOf],
   templateUrl: './search-trips.component.html',
-  styleUrl: './search-trips.component.css'
+  styleUrls: ['./search-trips.component.css']
 })
 export class SearchTripsComponent {
-  trips: {
-    id: number;
-    departure: string;
-    destination: string;
-    stopovers: string[];
-    maxDimensions: string;
-    merchandiseType: string;
-    availableCapacity: number;
-    departureDate: string;
-    driver: null;
-    requests: any[]
-  }[] = [];
+  trips: Trip[] = [];
   destination = '';
 
   constructor(private tripService: TripService) {}

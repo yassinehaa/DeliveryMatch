@@ -1,12 +1,35 @@
-<div class="container mt-5">
-  <h2>Request History</h2>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let request of requests">
-      ID: {{ request.id }} -
-      Trip: {{ request.trip.destination || 'N/A' }} -
-      Status: {{ request.status }} -
-      Date: {{ request.requestDate | date:'medium' }}
-    </li>
-  </ul>
-  <p *ngIf="requests.length === 0">No request history available.</p>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
 </div>
+<div *ngIf="!errorMessage && requests.length === 0" class="alert alert-info">
+  No requests found.
+</div>
+<table *ngIf="requests.length > 0" class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Trip</th>
+    <th>Dimensions</th>
+    <th>Weight</th>
+    <th>Type</th>
+    <th>Status</th>
+    <th>Request Date</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let request of requests">
+    <td>{{ request.id }}</td>
+    <td>{{ request.trip?.destination || 'N/A' }}</td>
+    <td>{{ request.dimensions }}</td>
+    <td>{{ request.weight }}</td>
+    <td>{{ request.type }}</td>
+    <td>{{ request.status }}</td>
+    <td>{{ request.requestDate | date }}</td>
+    <td>
+      <button *ngIf="request.status === 'EN_ATTENTE'" (click)="acceptRequest(request.id)" class="btn btn-success">Accept</button>
+      <button *ngIf="request.status === 'EN_ATTENTE'" (click)="refuseRequest(request.id)" class="btn btn-danger">Refuse</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

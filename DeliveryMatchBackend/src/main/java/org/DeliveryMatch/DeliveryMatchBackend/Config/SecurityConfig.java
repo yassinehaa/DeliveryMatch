@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api/trips/create").hasAuthority("ROLE_CONDUCTEUR")
+                        .requestMatchers("/api/trips/create").permitAll()
                         .requestMatchers("/api/parcels/send").hasAuthority("ROLE_EXPEDITEUR")
                         .requestMatchers("/api/v1").hasAnyAuthority("ROLE_CONDUCTEUR", "ROLE_EXPEDITEUR", "ROLE_ADMIN")
                         .anyRequest().authenticated()

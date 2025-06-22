@@ -3,7 +3,7 @@ import { ParcelRequest } from './parcel-request.model';
 
 export interface Trip {
   id: number;
-  driver: User | null;
+  driver: null; // Changed to null to match API response
   departure: string;
   destination: string;
   stopovers: string[];
